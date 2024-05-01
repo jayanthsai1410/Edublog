@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block pageContent %}
+<!--Section: Content-->
+<section class="text-center">
+    <div class="container">
+        <!-- Ram's Classroom Container -->
+        <div class="container my-5 py-4" style="border-radius: 15px; box-shadow: 0 0 8px rgba(0,0,0,0.1); animation: colorChange 5s infinite, glow 5s infinite;">
+            <h1 class="display-4 font-weight-bold text-center" style="color: #0d6efd;">Ram's Classroom</h1>
+            <p class="lead text-center" style="color: #6c757d;">A virtual space for learning and growth.</p>
+        </div>
+        <!-- Explore All Videos Section -->
+        <h2 class="mb-5 font-weight-bold text-uppercase">Explore All Videos</h2>
+
+        <!-- Search Input Field -->
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search videos..." style="border-radius: 20px; padding: 15px; font-size: 18px;">
+            </div>
+        </div>
+
+        <!-- Video Cards -->
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-lg-4 col-md-6 mb-4 video-card">
+                <div class="card shadow border">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="{% if post.banner %}{{ post.banner.url }}{% else %}{{ MEDIA_URL}}/media/default/python-django.png{% endif %}" class="img-fluid post-banner bg-gradient bg-dark" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15); border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">{{ post.title }}</h5>
+                        <a href="{% url 'view-post' post.id %}" class="btn btn-primary btn-rounded">Explore</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if not posts %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-info" role="alert">
+                    No videos available.
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CSS Styles -->
+<style>
+    /* Ram's Classroom Container Styles */
+    .ram-classroom-container {
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        padding: 40px;
+        margin-bottom: 50px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Explore All Videos Section Styles */
+    h2 {
+        color: #333;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    /* Video Card Styles */
+    .video-card {
+        transition: transform 0.3s;
+    }
+
+    .video-card:hover {
+        transform: translateY(-5px);
+    }
+   
+    @keyframes colorChange {
+    0% { background-color: #f8f9fa; }
+    25% { background-color: #ffcccb; }
+    50% { background-color: #90ee90; }
+    75% { background-color: #add8e6; }
+    100% { background-color: #f8f9fa; }
+}
+@keyframes glow {
+    0% { box-shadow: 0 0 60px #f8f9fa; }
+    25% { box-shadow: 0 0 60px #ffcccb; }
+    50% { box-shadow: 0 0 60px #90ee90; }
+    75% { box-shadow: 0 0 60px #add8e6; }
+    100% { box-shadow: 0 0 60px #f8f9fa; }
+}
+
+</style>
+{% endblock pageContent %}

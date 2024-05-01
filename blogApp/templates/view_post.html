@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block pageContent %}
+<!--Section: Content-->
+<section class="text-center">
+    <style>
+        /* Internal CSS */
+        #view-post-banner {
+            max-width: 50%; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .card {
+            background-color: #f8f9fa; /* Light grey background */
+            border: 1px solid #e0e0e0; /* Light grey border */
+        }
+        .card-header {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white; /* White text color */
+        }
+        .card-title {
+            font-size: 1.5rem; /* Larger font size for the title */
+        }
+        .card-body {
+            padding: 2rem; /* More padding inside the card body */
+        }
+        .text-start small {
+            color: #6c757d; /* Muted text color for small text */
+        }
+        .glow-download-btn {
+            box-shadow: 0 0 15px #007bff; /* Glowing effect for the download button */
+        }
+        /* Responsive design adjustments */
+        @media (max-width: 768px) {
+            #view-post-banner {
+                max-width: 100%; /* Full width on smaller screens */
+            }
+        }
+    </style>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 card card-default rounded-0 shadow">
+                <div class="card-header">
+                    <h4 class="card-title fw-bold">{{ post.title }}</h4>
+                </div>
+                <div class="card-body">
+                    <center>
+                        <img src="{% if post.banner %}{{ post.banner.url }}{% else %}{{ MEDIA_URL}}/media/default/python-django.png{% endif %}" alt="" class="img-fluid bg-gradient" id="view-post-banner">
+                    </center>
+                    <h4 class="fw-bolder mt-4 text-start">{{ post.title }}</h4>
+                    <hr>
+                    <div class="lh-1 text-start">
+                        <span class="me-5"><small>Author: <b>{{ post.author }}</b></small></span>
+                        <span class="me-5"><small>Category: <b>{{ post.category }}</b></small></span>
+                        <span><small><i class="fa fa-calendar-day"></i> Published: <b>{{ post.date_added|date:"F d, Y h:i A" }}</b></small></span>
+                    </div>
+                    <div class="clear-fix py-3"></div>
+                    <div>{{ post.blog_post|safe }}</div>
+                    <div class="mt-4">
+                        {% if post.pdf_file %}
+                        <a href="{{ post.pdf_file.url }}" class="glow-download-btn btn btn-primary bg-gradient" download>
+                            <i class="fa fa-download"></i> Download PDF
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock pageContent %}

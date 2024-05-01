@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'css/all.min.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body,
+        html {
+            font-family: 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background-color: #fff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link:focus {
+            color: #0d6efd;
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        /* Jumbotron styling */
+        #intro {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            border-radius: 0.5rem;
+            margin-top: 58px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 991px) {
+            #intro {
+                margin-top: 45px;
+            }
+        }
+
+        /* Button styling */
+        .btn {
+            border: none;
+            border-radius: 2rem;
+            padding: 0.75rem 1.5rem;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.25);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <div class="container">
+                <!-- Logo -->
+                
+
+                <!-- Navbar Toggler -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Navbar Links -->
+                <div class="collapse navbar-collapse" id="navbarExample01">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Home -->
+                        <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="{% url 'home-page' %}">Home</a>
+                        </li>
+                        <!-- All Categories -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'category-page' %}">All Categories</a>
+                        </li>
+                    </ul>
+
+                    <!-- User Profile & Logout -->
+                    <ul class="navbar-nav d-flex flex-row">
+                        {% if user.id %}
+                        <!-- Post Management (Visible for certain user types) -->
+                        {% if user.profile.user_type == 1 %}
+                        <li class="nav-item me-3 me-lg-0">
+                            <a class="nav-link" href="{% url 'post-mgt' %}">Post Management</a>
+                        </li>
+                        {% endif %}
+                        <!-- Category Management (Visible for certain user types) -->
+                        {% if user.profile.user_type == 1 %}
+                        <li class="nav-item me-3 me-lg-0">
+                            <a class="nav-link" href="{% url 'category-mgt' %}">Category Management</a>
+                        </li>
+                        {% endif %}
+                        <!-- User Profile -->
+                        <li class="nav-item me-3 me-lg-0">
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <span class="me-1"></span>Hello, {{ user.first_name }} {{ user.last_name }}
+                            </a>
+                        </li>
+                        <!-- Logout -->
+                        <li class="nav-item me-3 me-lg-0">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <!-- Login -->
+                        <li class="nav-item me-3 me-lg-0">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Jumbotron -->
+        <div id="intro" class="pt-2 text-center bg-light">
+            <!-- Jumbotron Content -->
+            <!-- You can add your jumbotron content here -->
+        </div>
+        <!-- Jumbotron -->
+    </header>
+
+    <!-- Your page content goes here -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
